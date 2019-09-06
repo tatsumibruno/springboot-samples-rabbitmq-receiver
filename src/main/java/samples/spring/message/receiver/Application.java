@@ -12,11 +12,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class MessageReceiverApplication {
+public class Application {
 
-    static final String topicExchangeName = "spring-boot-exchange";
+    static final String topicExchangeName = "messages-exchange";
 
-    static final String queueName = "spring-boot";
+    static final String queueName = "messages";
 
     @Bean
     Queue queue() {
@@ -30,7 +30,7 @@ public class MessageReceiverApplication {
 
     @Bean
     Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with("foo.bar.#");
+        return BindingBuilder.bind(queue).to(exchange).with("message-key");
     }
 
     @Bean
@@ -49,7 +49,7 @@ public class MessageReceiverApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(MessageReceiverApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
